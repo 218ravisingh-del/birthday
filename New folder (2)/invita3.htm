@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Form</title>
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #7fbf3f;
+    background-image:
+      linear-gradient(90deg, #7fbf3f 50%, #6faf3a 50%),
+      linear-gradient(0deg, #7fbf3f 50%, #6faf3a 50%);
+    background-size: 40px 40px;
+    overflow: hidden;
+  }
+  form {
+    background-color: #a8d080;
+    border: 4px solid #2b2b2b;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 6px 6px 0px #000;
+    width: 90%;
+    max-width: 360px;
+    z-index: 1;
+    position: relative;
+  }
+  h2 {
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    color: #fff;
+    background-color: #2b2b2b;
+    padding: 8px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+    color: white;
+    text-shadow: 2px 2px 0px #000;
+  }
+  input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    background-color: #f3efd9;
+  }
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .checkbox-row input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  .checkbox-row label {
+    margin: 0;
+    font-size: 14px;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #8b5a2b;
+    border: 3px solid #000;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #111;
+    transition: transform 0.2s;
+    margin-top: 15px;
+  }
+  button:hover {
+    transform: scale(1.05);
+  }
+  .warning {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    display: none;
+    text-align: center;
+  }
+
+  /* Loading Window Styles */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .cake-loader {
+    background: #ffd700; /* cake gold color */
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    width: 250px;
+    box-shadow: 0 0 20px #000;
+  }
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #ff4d6d;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    animation: spin 1s linear infinite;
+  }
+  .loading-text {
+    color: #2b2b2b;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .loading-subtext {
+    color: #2b2b2b;
+    font-size: 14px;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+<form id="birthdayForm" action="invita4.htm" method="GET">
+  <h2>🎂 Birthday Form 🎉</h2>
+
+  <label for="name">Your Name</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="relation">Relation</label>
+  <select id="relation" name="relation" required>
+    <option value="">--Select--</option>
+    <option value="Friend">Friend (obviously 😄)</option>
+    <option value="Aunty">Aunty</option>
+    <option value="Uncle">Uncle</option>
+    <option value="Father Relative">Father's Relative</option>
+    <option value="Mother Relative">Mother's Relative</option>
+  </select>
+
+  <label for="age">Your Age</label>
+  <input type="number" id="age" name="age" min="1" max="120" required>
+
+  <div class="checkbox-row">
+    <input type="checkbox" id="confirm" required>
+    <label for="confirm">Only fill this form if you want to come ✅</label>
+  </div>
+
+  <button type="submit">🚀 Join the Party!</button>
+  <div id="warning" class="warning">⚠ You are doing matrix glitch!</div>
+</form>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="cake-loader">
+    <div class="spinner"></div>
+    <div class="loading-text">Sending form to the headquarter/home of Darshit 🎂</div>
+    <div class="loading-subtext">Hehe, Darshit is a business man now 😎</div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('birthdayForm');
+  const relation = document.getElementById('relation');
+  const age = document.getElementById('age');
+  const warning = document.getElementById('warning');
+  const overlay = document.getElementById('loadingOverlay');
+
+  form.addEventListener('submit', function(e) {
+    const ageVal = parseInt(age.value);
+    const relationVal = relation.value;
+
+    if ((relationVal === 'Aunty' || relationVal === 'Uncle') && ageVal < 18) {
+      e.preventDefault();
+      warning.style.display = 'block';
+    } else {
+      e.preventDefault(); // prevent immediate submission for loading effect
+      warning.style.display = 'none';
+      overlay.style.display = 'flex';
+      
+      // Simulate loading and then submit
+      setTimeout(() => {
+        form.submit();
+      }, 3000); // 3 seconds loading
+    }
+  });
+</script>
+</body>
+</html>

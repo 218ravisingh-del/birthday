@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darshit's Birthday 🎉</title>
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    background-color: #7fbf3f; /* Minecraft grass background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background-color: #a8d080;
+    border: 4px solid #2b2b2b;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 6px 6px 0px #000;
+    width: 90%;
+    max-width: 360px;
+  }
+  h3 {
+    color: green;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  .badge {
+    background: gold;
+    color: black;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 22px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 3px solid #b57f50;
+  }
+  .info {
+    margin: 10px 0;
+    font-size: 16px;
+    color: white;
+    text-shadow: 1px 1px 0px #000;
+  }
+  button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #8b5a2b;
+    color: white;
+    box-shadow: 3px 3px 0px #111;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h3>🎉 You are now part of Darshit's Birthday Party ✅</h3>
+  <div class="badge">DAr23BIR2</div>
+  <div class="info" id="userInfo">Loading...</div>
+
+  <button onclick="window.location='invita3.html'">Recheck Form</button>
+  <button onclick="window.location='index.html'">Cancel</button>
+  <button onclick="window.location='invita3.html'">Add Another Member</button>
+</div>
+
+<script>
+  // Get the submitted data from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('name');
+  const relation = urlParams.get('relation');
+  const age = urlParams.get('age');
+
+  const userInfo = document.getElementById('userInfo');
+  if(name && relation && age){
+    userInfo.innerHTML = `
+      <strong>Name:</strong> ${name} <br>
+      <strong>Relation:</strong> ${relation} <br>
+      <strong>Age:</strong> ${age}
+    `;
+  } else {
+    userInfo.innerHTML = "No user found!";
+  }
+</script>
+</body>
+</html>
